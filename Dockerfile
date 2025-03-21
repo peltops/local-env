@@ -2,8 +2,15 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update; \
-    apt-get install -y curl wget python3-pip openssh-client iputils-ping netcat vim unzip 
-RUN apt-get install -y gnupg software-properties-common groff
+    apt-get install -y wget curl openssh-client iputils-ping netcat vim unzip; \
+    apt-get install -y gnupg software-properties-common groff
+RUN add-apt-repository ppa:deadsnakes/ppa; apt update -y; apt install -y python3.12; \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1; \
+    apt remove --purge python3-apt; apt autoclean; \
+    apt install -y python3-apt; \
+    apt-get install -y python3.12-distutils python3.12-dev python3.12-venv
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
+
 RUN pip3 install ansible docker pyyaml kubernetes
 RUN ansible --version
 RUN mkdir /etc/ansible
