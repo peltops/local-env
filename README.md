@@ -1,3 +1,12 @@
+# local-env
+Development sandbox with various tools
+- Python
+- Ansible
+- Docker
+- Kubectl
+- Terraform
+- Helm
+
 ## Build
 Open terminal and run
 `docker build -t local-env:v0.2 -f Dockerfile .`
